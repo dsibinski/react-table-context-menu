@@ -5,11 +5,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Table } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import { SampleCars } from "../data";
 import { Car } from "../types/Car";
 
-export const CarsTable = () => {
+type CarsTableProps = {
+  selectedCar: Car | null;
+  onCarSelected: (car: Car) => void;
+};
+export const CarsTable = (props: CarsTableProps) => {
   const columnHelper = createColumnHelper<Car>();
 
   const columns = [
@@ -61,8 +64,17 @@ export const CarsTable = () => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => {
+          const isActive = row.original.id === props.selectedCar?.id;
           return (
-            <tr key={row.id}>
+            <tr
+              key={row.id}
+              style={
+                isActive === true ? { backgroundColor: "#932ba1" } : undefined
+              }
+              onClick={() => {
+                props.onCarSelected(row.original);
+              }}
+            >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
