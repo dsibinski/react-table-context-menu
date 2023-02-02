@@ -37,14 +37,6 @@ export const CarsTable = (props: CarsTableProps) => {
       cell: (info) => (info.getValue().valueOf() === true ? "Yes" : "No"),
       header: () => "Available?",
     }),
-    columnHelper.display({
-      id: "context-menu",
-      cell: (cellContext) => {
-        const row = cellContext.row.original;
-
-        return <CarRowContextMenu carRow={row} />;
-      },
-    }),
   ];
 
   const table = useReactTable({
@@ -68,6 +60,8 @@ export const CarsTable = (props: CarsTableProps) => {
                     )}
               </th>
             ))}
+            {/* placeholder header for context menu */}
+            <th></th>
           </tr>
         ))}
       </thead>
@@ -89,6 +83,9 @@ export const CarsTable = (props: CarsTableProps) => {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
+              <td>
+                <CarRowContextMenu carRow={row.original} />
+              </td>
             </tr>
           );
         })}
