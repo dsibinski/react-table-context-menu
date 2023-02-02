@@ -69,7 +69,7 @@ export const CarsTable = (props: CarsTableProps) => {
             <tr
               key={row.id}
               style={
-                isActive === true ? { backgroundColor: "#932ba1" } : undefined
+                isActive === true ? { backgroundColor: "#3a7a11" } : undefined
               }
               onClick={() => {
                 props.onCarSelected(row.original);
