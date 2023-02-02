@@ -7,6 +7,7 @@ import {
 import { Table } from "react-bootstrap";
 import { SampleCars } from "../data";
 import { Car } from "../types/Car";
+import { CarRowContextMenu } from "./CarRowContextMenu";
 
 type CarsTableProps = {
   selectedCar: Car | null;
@@ -35,6 +36,14 @@ export const CarsTable = (props: CarsTableProps) => {
       id: "isAvailable",
       cell: (info) => (info.getValue().valueOf() === true ? "Yes" : "No"),
       header: () => "Available?",
+    }),
+    columnHelper.display({
+      id: "context-menu",
+      cell: (cellContext) => {
+        const row = cellContext.row.original;
+
+        return <CarRowContextMenu carRow={row} />;
+      },
     }),
   ];
 
